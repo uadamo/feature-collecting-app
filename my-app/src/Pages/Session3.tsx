@@ -1,7 +1,8 @@
 import React from "react";
+import "./Session.css";
 
 const Session3 = () => {
-  return <div>Session3</div>;
+  return <div className="main-panel">Session3</div>;
 };
 
 export { Session3 };

@@ -1,0 +1,93 @@
+.main-panel {
+  padding: 10px 40px;
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  align-items: center;
+  height: 80%;
+}
+.task-description {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+  align-items: center;
+}
+
+.task-description.clicked {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.task-header {
+  font-size: large;
+}
+
+.session-1-task-button {
+  background-color: white;
+  border: lightgrey 1px solid;
+  font-size: large;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: background-color 0.3s linear;
+}
+
+.session-1-task-button:hover {
+  background-color: lightgray;
+}
+
+.session1-input-field {
+  padding: 10px 20px;
+  width: 25rem;
+  border: none;
+}
+
+.session1-task-text {
+  font-size: xx-large;
+  display: none;
+}
+
+.session1-task-text.enabled {
+  display: flex;
+}
+
+.task-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.next-task-button {
+  display: none;
+}
+
+.next-task-button.completed {
+  display: flex;
+  background-color: rgb(76, 216, 81);
+  font-size: large;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: background-color 0.3s linear;
+}
+
+.next-task-button.completed:hover {
+  background-color: rgb(54, 188, 59);
+}
+
+.next-experiment-button {
+  display: none;
+}
+
+.next-experiment-button.completed {
+  display: flex;
+  background-color: rgb(76, 216, 81);
+  font-size: large;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: background-color 0.3s linear;
+}
+
+.next-experiment-button.completed:hover {
+  background-color: rgb(54, 188, 59);
+}

@@ -1,4 +1,19 @@
 .home {
   padding: 10px 40px;
   display: flex;
+  column-gap: 30px;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
+.session-tab {
+  height: 200px;
+  aspect-ratio: 16 / 9;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
 }
