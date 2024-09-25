@@ -2,9 +2,11 @@ import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
-import { Session1 } from "./Pages/Session1";
-import { Session2 } from "./Pages/Session2";
-import { Session3 } from "./Pages/Session3";
+import { Task1 } from "./Pages/Task1";
+import { Task2a } from "./Pages/Task2a";
+import { Task2b } from "./Pages/Task2b";
+import { Task2c } from "./Pages/Task2c";
+import { Task3 } from "./Pages/Task3";
 import NavBar from "./Navbar";
 
 function App() {
@@ -13,9 +15,11 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/session1" element={<Session1 />} />
-        <Route path="/session2" element={<Session2 />} />
-        <Route path="/session3" element={<Session3 />} />
+        <Route path="/task1" element={<Task1 />} />
+        <Route path="/task2a" element={<Task2a />} />
+        <Route path="/task2b" element={<Task2b />} />
+        <Route path="/task2c" element={<Task2c />} />
+        <Route path="/task3" element={<Task3 />} />
       </Routes>
     </>
   );

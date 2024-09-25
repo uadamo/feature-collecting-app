@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 import "./Session.css";
-import classNames from "classnames";
 import { NavLink } from "react-router-dom";
+import classNames from "classnames";
 
-const Session1 = () => {
+const Task2a = () => {
+  const exp2text1 = "The quick brown fox jumps over the lazy dog";
   const [enabled, setEnabled] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const [completed, setExp1Completed] = useState(false);
+  const [completed, setCompleted] = useState(false);
   const currentDate = new Date();
-  const exp1text = "9pVBj4J0";
-  //const exp2text1 = "The quick brown fox jumps over the lazy dog";
-  //const exp2text2 = "Pack my box with four dozen liquor jugs";
-  //const exp2text3 = "For doves love my big sphinx of quartz";
   const handleStartTask = () => {
     setClicked(true);
     const timestamp = currentDate.getTime();
     console.log(timestamp);
     setTimeout(() => {
       setEnabled(true);
-      document.getElementById("session1-input-field")!.focus();
+      document.getElementById("task-input-field")!.focus();
     }, 2000);
   };
 
@@ -68,13 +65,13 @@ const Session1 = () => {
 
   const handleTextValidationExp1 = () => {
     const text = (document.getElementById(
-      "session1-input-field"
+      "task-input-field"
     ) as HTMLInputElement)!.value;
 
-    if (text === exp1text) {
-      setExp1Completed(true);
+    if (text === exp2text1) {
       const timestamp = currentDate.getTime();
       console.log(timestamp);
+      setCompleted(true);
     }
   };
 
@@ -82,22 +79,20 @@ const Session1 = () => {
     <div className="main-panel">
       <div className={classNames("task-description", { clicked })}>
         <div className="task-header">
-          Type in the text once it shows up on the screen
+          <div className="task-title">Task 2: Typing a phrase</div>
+          Start typing the text once it turns red
         </div>
-        <button
-          className={classNames("session-1-task-button")}
-          onClick={handleStartTask}
-        >
-          Begin task
+        <button className={classNames("task-button")} onClick={handleStartTask}>
+          Start task
         </button>
       </div>
       <div className="task-content">
-        <div className={classNames("session1-task-text", { enabled })}>
-          {exp1text}
+        <div className={classNames("task-task-text", { enabled })}>
+          {exp2text1}
         </div>
         <input
-          className="session1-input-field"
-          id="session1-input-field"
+          className="task-input-field"
+          id="task-input-field"
           type="text"
           name="name"
           required
@@ -110,17 +105,18 @@ const Session1 = () => {
           onInput={handleTextValidationExp1}
         />
       </div>
-      {/* enable button once text typed in correctly*/}
-      <NavLink to={"/session2"} style={{ textDecoration: "none" }}>
-        <button
-          className={classNames("next-task-button", { completed })}
-          onClick={handleFinishTask}
-        >
-          Next task
-        </button>
-      </NavLink>
+      <div className="next-task-button-holder">
+        <NavLink to={"/task2b"} style={{ textDecoration: "none" }}>
+          <button
+            className={classNames("next-task-button", { completed })}
+            onClick={handleFinishTask}
+          >
+            Next task
+          </button>
+        </NavLink>
+      </div>
     </div>
   );
 };
 
-export { Session1 };
+export { Task2a };

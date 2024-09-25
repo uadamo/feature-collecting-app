@@ -1,7 +1,7 @@
 import React from "react";
 
 const Disclaimer = () => {
-  return <div>Disclaimer</div>;
+  return <div className="main-panel">Disclaimer</div>;
 };
 
 export { Disclaimer };

@@ -8,15 +8,15 @@ const NavBar = () => {
         Home
       </NavLink>
 
-      <NavLink className="navbar-item" to="/session1">
+      <NavLink className="navbar-item" to="/task1">
         Session1
       </NavLink>
 
-      <NavLink className="navbar-item" to="/session2">
+      <NavLink className="navbar-item" to="/task1">
         Session2
       </NavLink>
 
-      <NavLink className="navbar-item" to="/session3">
+      <NavLink className="navbar-item" to="/task1">
         Session3
       </NavLink>
     </div>

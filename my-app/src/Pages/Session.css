@@ -1,17 +1,16 @@
 .main-panel {
-  padding: 10px 40px;
+  padding: 10px 400px;
   margin-top: 4rem;
   display: flex;
   flex-direction: column;
-  row-gap: 1rem;
-  align-items: center;
+  row-gap: 5rem;
   height: 80%;
 }
 .task-description {
   display: flex;
   flex-direction: row;
-  column-gap: 1rem;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
 .task-description.clicked {
@@ -23,7 +22,7 @@
   font-size: large;
 }
 
-.session-1-task-button {
+.task-button {
   background-color: white;
   border: lightgrey 1px solid;
   font-size: large;
@@ -32,23 +31,50 @@
   transition: background-color 0.3s linear;
 }
 
-.session-1-task-button:hover {
+.task-button:hover {
+  background-color: lightgrey;
+}
+
+.task-task-button:hover {
   background-color: lightgray;
 }
 
-.session1-input-field {
-  padding: 10px 20px;
-  width: 25rem;
+.task-title {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.info-button {
+  margin: 5px;
+  height: 25px;
+  width: 25px;
+  border-radius: 100%;
+  border: lightgrey 1px solid;
+  background-color: white;
+  transition: background-color 0.3s linear;
+}
+
+.info-button:hover {
+  background-color: lightgray;
+}
+
+.task-input-field {
+  padding: 10px 10px;
+  box-sizing: border-box;
+  width: 100%;
   border: none;
 }
 
-.session1-task-text {
+.task-task-text {
+  opacity: 0.5;
+  user-select: none;
   font-size: xx-large;
-  display: none;
 }
 
-.session1-task-text.enabled {
-  display: flex;
+.task-task-text.enabled {
+  opacity: 1;
+  color: red;
 }
 
 .task-content {
@@ -64,7 +90,8 @@
 
 .next-task-button.completed {
   display: flex;
-  background-color: rgb(76, 216, 81);
+  border: lightgray 1px solid;
+  background-color: white;
   font-size: large;
   border-radius: 10px;
   padding: 10px 20px;
@@ -72,7 +99,12 @@
 }
 
 .next-task-button.completed:hover {
-  background-color: rgb(54, 188, 59);
+  background-color: lightgray;
+}
+
+.next-task-button-holder {
+  display: flex;
+  justify-content: end;
 }
 
 .next-experiment-button {
