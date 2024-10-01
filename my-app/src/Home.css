@@ -1,10 +1,24 @@
 .home {
   padding: 10px 40px;
   display: flex;
+  flex-direction: column;
+  height: 80%;
+  row-gap: 30px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.sessions {
+  display: flex;
   column-gap: 30px;
   justify-content: center;
   align-items: center;
-  height: 80%;
 }
 
 .session-tab {
@@ -16,4 +30,9 @@
   align-content: center;
   align-items: center;
   justify-content: center;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }

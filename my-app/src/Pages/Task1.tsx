@@ -11,6 +11,7 @@ const Task1 = () => {
   const [clicked, setClicked] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
   const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
   const currentDate = new Date();
   const exp1text = "9pVBj4J0";
@@ -32,6 +33,7 @@ const Task1 = () => {
     await set(keystrokeListRef, {
       user_id: userId,
       start_time: startTime,
+      end_time: endTime,
       keystroke_list: keystrokeList,
       timestamp: timestamp,
     }).catch((error) => alert(error));
@@ -55,7 +57,6 @@ const Task1 = () => {
       repeated: e.repeat,
     };
     setKeyStrokeList((keystrokeList) => [...keystrokeList, keyDownInfo]);
-    console.log(keyDownInfo);
   };
 
   const handleRegisterKeyup = (e: KeyboardEvent) => {
@@ -81,9 +82,10 @@ const Task1 = () => {
     const text = (document.getElementById(
       "task-input-field"
     ) as HTMLInputElement)!.value;
-
     if (text === exp1text) {
       setCompleted(true);
+      const timestamp = currentDate.getTime();
+      setEndTime(timestamp);
     }
   };
 

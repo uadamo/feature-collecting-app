@@ -12,6 +12,7 @@ const Task2b = () => {
   const [clicked, setClicked] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
   const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
   const db = getDatabase(app);
   const currentDate = new Date();
@@ -71,7 +72,7 @@ const Task2b = () => {
 
     if (text === exp2text2) {
       const timestamp = currentDate.getTime();
-      console.log(timestamp);
+      setEndTime(timestamp);
       setCompleted(true);
     }
   };
@@ -83,6 +84,7 @@ const Task2b = () => {
     await set(keystrokeListRef, {
       user_id: userId,
       start_time: startTime,
+      end_time: endTime,
       keystroke_list: keystrokeList,
       timestamp: timestamp,
     }).catch((error) => alert(error));

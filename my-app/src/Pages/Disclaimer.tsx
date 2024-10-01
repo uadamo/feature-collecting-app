@@ -60,17 +60,24 @@ const Disclaimer = () => {
         the purposes of this thesis. The data is pseudo-anonymous, meaning you
         will not be asked to provide details of your exact identity. The web
         application will grant your browser a cookie, which will serve as an
-        identifier for upcoming sessions. Please don't clear your cookies during
-        this research.
+        identifier for upcoming sessions. Please don't clear this cookie,
+        <i> keystroke-auth-research-tracking </i>, before you've finished the
+        three sessions.
       </div>
       <div className="info-text">
         The research will consist of three identical sessions, performed at a
         simiar time during the day. Therefore, please carry out all three
-        sessions for data integrity.
+        sessions for data integrity. The sessions must be timed at least one day
+        apart.
       </div>
       <div className="info-text">
         When doing the instructed tasks, simply focus on typing once you click
-        the button to begin the task - the input field will focus automatically
+        the button to begin the task - the input field will focus automatically.
+        Once the correct text has been typed in, you'll be able to resume with a
+        new task.
+      </div>
+      <div className="info-text-highlighted">
+        To participate, you must have the standard QWERTY keyboard.
       </div>
       <div className="info-text-highlighted">
         By participating in the research, you agree that all the data collected
