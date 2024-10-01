@@ -11,16 +11,18 @@ const Task2c = () => {
   const [enabled, setEnabled] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [startTime, setStartTime] = useState(0);
   const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
+  const db = getDatabase(app);
   const currentDate = new Date();
   const handleStartTask = () => {
     setClicked(true);
     const timestamp = currentDate.getTime();
-    console.log(timestamp);
+    setStartTime(timestamp);
     setTimeout(() => {
       setEnabled(true);
       document.getElementById("task-input-field")!.focus();
-    }, 2000);
+    }, 3800);
   };
 
   const handleRegisterKeydown = (e: KeyboardEvent) => {
@@ -40,7 +42,7 @@ const Task2c = () => {
       type: e.type,
       repeated: e.repeat,
     };
-    console.log(keyDownInfo);
+    setKeyStrokeList((keystrokeList) => [...keystrokeList, keyDownInfo]);
   };
 
   const handleRegisterKeyup = (e: KeyboardEvent) => {
@@ -59,7 +61,7 @@ const Task2c = () => {
       altKey: e.altKey,
       type: e.type,
     };
-    console.log(keyUpInfo);
+    setKeyStrokeList((keystrokeList) => [...keystrokeList, keyUpInfo]);
   };
 
   const handleTextValidationExp1 = () => {
@@ -74,10 +76,16 @@ const Task2c = () => {
     }
   };
 
-  const handleFinishTask = () => {
+  const handleFinishTask = async () => {
     const userId = Cookies.get("keystroke-auth-research-tracking");
     const timestamp = currentDate.getTime();
-    console.log(timestamp);
+    const keystrokeListRef = push(ref(db, "task2/taskC"));
+    await set(keystrokeListRef, {
+      user_id: userId,
+      start_time: startTime,
+      keystroke_list: keystrokeList,
+      timestamp: timestamp,
+    }).catch((error) => alert(error));
   };
 
   return (

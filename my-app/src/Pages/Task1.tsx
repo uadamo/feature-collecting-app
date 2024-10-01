@@ -10,6 +10,7 @@ const Task1 = () => {
   const [enabled, setEnabled] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [startTime, setStartTime] = useState(0);
   const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
   const currentDate = new Date();
   const exp1text = "9pVBj4J0";
@@ -17,19 +18,20 @@ const Task1 = () => {
   const handleStartTask = () => {
     setClicked(true);
     const timestamp = currentDate.getTime();
-    console.log(timestamp);
+    setStartTime(timestamp);
     setTimeout(() => {
       setEnabled(true);
       document.getElementById("task-input-field")!.focus();
-    }, 2000);
+    }, 3500);
   };
 
   const handleFinishTask = async () => {
     const userId = Cookies.get("keystroke-auth-research-tracking");
     const timestamp = currentDate.getTime();
-    const keystrokeListRef = push(ref(db, "session1"));
+    const keystrokeListRef = push(ref(db, "task1"));
     await set(keystrokeListRef, {
       user_id: userId,
+      start_time: startTime,
       keystroke_list: keystrokeList,
       timestamp: timestamp,
     }).catch((error) => alert(error));
@@ -89,9 +91,17 @@ const Task1 = () => {
     <div className="main-panel">
       <div className={classNames("task-description", { clicked })}>
         <div className="task-header">
-          <div className="task-title">
+          <div className={classNames("task-title")}>
             Task 1: Secure password
-            <button className="info-button">?</button>
+            <div className="tooltip">
+              <button className={classNames("info-button")}>?</button>
+              <span className="tooltiptext">
+                The input field will focus automatically once the colour changes
+                - simply start typing then. Don't worry about making mistakes -
+                that is acceptable. Once the text has been typed in correctly, a
+                button leading to the next task will appear.
+              </span>
+            </div>
           </div>
           Start typing the text once it turns red
         </div>

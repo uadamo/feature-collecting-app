@@ -30,6 +30,15 @@ const Disclaimer = () => {
     })
       .then(() => alert("You may begin the first session!"))
       .catch((error) => alert(error));
+    const sessionListRef = push(ref(db, "sessions"));
+    await set(sessionListRef, {
+      user_id: userId,
+      session1: 1,
+      session2: 0,
+      session3: 0,
+    })
+      .then(() => alert("You may begin the first session!"))
+      .catch((error) => alert(error));
     navigate("/task1");
     window.location.reload();
   };

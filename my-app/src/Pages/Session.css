@@ -123,3 +123,30 @@
 .next-experiment-button.completed:hover {
   background-color: rgb(54, 188, 59);
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  font-size: small;
+  visibility: hidden;
+  background-color: white;
+  font-weight: lighter;
+  color: black;
+  padding: 10px;
+  border: lightgrey 1px solid;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 1;
+  width: 300px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -150px;
+  text-align: center;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
