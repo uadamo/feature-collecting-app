@@ -13,7 +13,7 @@ const Home = () => {
 
       <div className="sessions">
         <NavLink className="navbar-item" to="/task1">
-          <div className="session-tab">Session 1 </div>
+          <div className="session-tab">Session1 </div>
         </NavLink>
         <NavLink className={classNames("navbar-item", "disabled")} to="/task1">
           <div className={classNames("session-tab", "disabled")}>
@@ -21,9 +21,7 @@ const Home = () => {
           </div>
         </NavLink>
         <NavLink className={classNames("navbar-item", "disabled")} to="/task1">
-          <div className={classNames("session-tab", "disabled")}>
-            Session 3{" "}
-          </div>
+          <div className={classNames("session-tab", "disabled")}>Session3 </div>
         </NavLink>
       </div>
     </div>
