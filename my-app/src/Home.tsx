@@ -15,12 +15,18 @@ const Home = () => {
         <NavLink className="navbar-item" to="/task1">
           <div className="session-tab">Session 1 </div>
         </NavLink>
-        <NavLink className={classNames("navbar-item", "disabled")} to="/task1">
+        <NavLink
+          className={classNames("navbar-item", "disabled")}
+          to="/feature-collecting-app/task1"
+        >
           <div className={classNames("session-tab", "disabled")}>
             Session 2{" "}
           </div>
         </NavLink>
-        <NavLink className={classNames("navbar-item", "disabled")} to="/task1">
+        <NavLink
+          className={classNames("navbar-item", "disabled")}
+          to="/feature-collecting-app/task1"
+        >
           <div className={classNames("session-tab", "disabled")}>
             Session 3{" "}
           </div>
