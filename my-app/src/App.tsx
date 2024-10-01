@@ -16,6 +16,7 @@ function App() {
   return (
     <>
       <NavBar />
+      <Home />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
