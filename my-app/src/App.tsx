@@ -17,60 +17,27 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/feature-collecting-app" element={<Home />} />
-        <Route
-          path="/feature-collecting-app/disclaimer"
-          element={<Disclaimer />}
-        />
+        <Route path="/" element={<Home />} />
+        <Route path="/disclaimer" element={<Disclaimer />} />
         <Route
           path="/task1"
-          element={
-            userId ? (
-              <Task1 />
-            ) : (
-              <Navigate to="/feature-collecting-app/disclaimer" />
-            )
-          }
+          element={userId ? <Task1 /> : <Navigate to="/disclaimer" />}
         />
         <Route
           path="/task2a"
-          element={
-            userId ? (
-              <Task2a />
-            ) : (
-              <Navigate to="/feature-collecting-app/disclaimer" />
-            )
-          }
+          element={userId ? <Task2a /> : <Navigate to="/disclaimer" />}
         />
         <Route
           path="/task2b"
-          element={
-            userId ? (
-              <Task2b />
-            ) : (
-              <Navigate to="/feature-collecting-app/disclaimer" />
-            )
-          }
+          element={userId ? <Task2b /> : <Navigate to="/disclaimer" />}
         />
         <Route
           path="/task2c"
-          element={
-            userId ? (
-              <Task2c />
-            ) : (
-              <Navigate to="/feature-collecting-app/disclaimer" />
-            )
-          }
+          element={userId ? <Task2c /> : <Navigate to="/disclaimer" />}
         />
         <Route
           path="/task3"
-          element={
-            userId ? (
-              <Task3 />
-            ) : (
-              <Navigate to="/feature-collecting-app/disclaimer" />
-            )
-          }
+          element={userId ? <Task3 /> : <Navigate to="/disclaimer" />}
         />
       </Routes>
     </>
