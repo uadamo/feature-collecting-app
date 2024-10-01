@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Home";
 import { Task1 } from "./Pages/Task1";
 import { Task2a } from "./Pages/Task2a";
@@ -8,18 +8,37 @@ import { Task2b } from "./Pages/Task2b";
 import { Task2c } from "./Pages/Task2c";
 import { Task3 } from "./Pages/Task3";
 import NavBar from "./Navbar";
+import { Disclaimer } from "./Pages/Disclaimer";
+import Cookies from "js-cookie";
 
 function App() {
+  const userId = Cookies.get("keystroke-auth-research-tracking");
   return (
     <>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/task1" element={<Task1 />} />
-        <Route path="/task2a" element={<Task2a />} />
-        <Route path="/task2b" element={<Task2b />} />
-        <Route path="/task2c" element={<Task2c />} />
-        <Route path="/task3" element={<Task3 />} />
+        <Route path="/disclaimer" element={<Disclaimer />} />
+        <Route
+          path="/task1"
+          element={userId ? <Task1 /> : <Navigate to="/disclaimer" />}
+        />
+        <Route
+          path="/task2a"
+          element={userId ? <Task2a /> : <Navigate to="/disclaimer" />}
+        />
+        <Route
+          path="/task2b"
+          element={userId ? <Task2b /> : <Navigate to="/disclaimer" />}
+        />
+        <Route
+          path="/task2c"
+          element={userId ? <Task2c /> : <Navigate to="/disclaimer" />}
+        />
+        <Route
+          path="/task3"
+          element={userId ? <Task3 /> : <Navigate to="/disclaimer" />}
+        />
       </Routes>
     </>
   );

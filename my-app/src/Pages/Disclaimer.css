@@ -1,0 +1,50 @@
+.main-panel {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+.info-header {
+  font-size: large;
+  font-weight: 500;
+}
+.info-text {
+  font-size: smaller;
+}
+
+.info-text-highlighted {
+  font-weight: 500;
+  font-size: medium;
+}
+.identity-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name-input {
+  padding: 5px;
+  margin: 10px;
+  border: lightgray 1px solid;
+  border-radius: 5px;
+}
+
+.select-input {
+  padding: 5px;
+  margin: 10px;
+  border: lightgray 1px solid;
+  border-radius: 5px;
+}
+
+.submit-button {
+  padding: 5px;
+  margin: 10px;
+  border: lightgray 1px solid;
+  background-color: white;
+  font-size: large;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: background-color 0.3s linear;
+}
+.submit-button:hover {
+  background-color: lightgray;
+}

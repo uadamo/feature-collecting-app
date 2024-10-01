@@ -2,12 +2,16 @@ import classNames from "classnames";
 import React, { useState } from "react";
 import "./Session.css";
 import { NavLink } from "react-router-dom";
+import Cookies from "js-cookie";
+import { app } from "../firebase";
+import { getDatabase, ref, set, push } from "firebase/database";
 
 const Task2b = () => {
   const exp2text2 = "Pack my box with four dozen liquor jugs";
   const [enabled, setEnabled] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
   const currentDate = new Date();
   const handleStartTask = () => {
     setClicked(true);
@@ -71,6 +75,7 @@ const Task2b = () => {
   };
 
   const handleFinishTask = () => {
+    const userId = Cookies.get("keystroke-auth-research-tracking");
     const timestamp = currentDate.getTime();
     console.log(timestamp);
   };

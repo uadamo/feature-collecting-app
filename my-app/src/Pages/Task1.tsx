@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import "./Session.css";
 import classNames from "classnames";
 import { NavLink } from "react-router-dom";
+import Cookies from "js-cookie";
+import { app } from "../firebase";
+import { getDatabase, ref, set, push } from "firebase/database";
 
 const Task1 = () => {
   const [enabled, setEnabled] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
   const currentDate = new Date();
   const exp1text = "9pVBj4J0";
+  const db = getDatabase(app);
   const handleStartTask = () => {
     setClicked(true);
     const timestamp = currentDate.getTime();
@@ -19,9 +24,15 @@ const Task1 = () => {
     }, 2000);
   };
 
-  const handleFinishTask = () => {
+  const handleFinishTask = async () => {
+    const userId = Cookies.get("keystroke-auth-research-tracking");
     const timestamp = currentDate.getTime();
-    console.log(timestamp);
+    const keystrokeListRef = push(ref(db, "session1"));
+    await set(keystrokeListRef, {
+      user_id: userId,
+      keystroke_list: keystrokeList,
+      timestamp: timestamp,
+    }).catch((error) => alert(error));
   };
 
   const handleRegisterKeydown = (e: KeyboardEvent) => {
@@ -41,6 +52,7 @@ const Task1 = () => {
       type: e.type,
       repeated: e.repeat,
     };
+    setKeyStrokeList((keystrokeList) => [...keystrokeList, keyDownInfo]);
     console.log(keyDownInfo);
   };
 
@@ -60,7 +72,7 @@ const Task1 = () => {
       altKey: e.altKey,
       type: e.type,
     };
-    console.log(keyUpInfo);
+    setKeyStrokeList((keystrokeList) => [...keystrokeList, keyUpInfo]);
   };
 
   const handleTextValidationExp1 = () => {
@@ -70,8 +82,6 @@ const Task1 = () => {
 
     if (text === exp1text) {
       setCompleted(true);
-      const timestamp = currentDate.getTime();
-      console.log(timestamp);
     }
   };
 

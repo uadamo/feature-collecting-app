@@ -2,16 +2,21 @@ import React, { useState } from "react";
 import "./Session.css";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
+import Cookies from "js-cookie";
+import { app } from "../firebase";
+import { getDatabase, ref, set, push } from "firebase/database";
 
 const Task3 = () => {
   const [completed, setCompleted] = useState(false);
+  const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
   const currentDate = new Date();
   const question1 =
-    "Keystroke dynamics authentication is based on analysis of a subject's unique typing rhythm - with enough observation, " +
-    "personal characteristics like levels of fatigue, cognitive patterns and even health conditions can be accurately estimated. Would you consider" +
-    " this to potentially be a privacy risk, enough to make you opt out of using it? ";
+    "The accuracy of a keystroke dynamics authentication system may be affected by one's mood and energy level," +
+    " among other personal factors. " +
+    "Describe your mood and energy level at the time of this session.";
 
   const handleFinishTask = () => {
+    const userId = Cookies.get("keystroke-auth-research-tracking");
     const timestamp = currentDate.getTime();
     console.log(timestamp);
   };
