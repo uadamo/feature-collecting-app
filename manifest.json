@@ -1,6 +1,6 @@
 {
-  "short_name": "Research app",
-  "name": "Keystroke auth collection app",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
