@@ -32,7 +32,12 @@
   justify-content: center;
 }
 
-.disabled {
+.navbar-item {
   opacity: 0.5;
   pointer-events: none;
+}
+
+.enabled {
+  opacity: 1;
+  pointer-events: all;
 }

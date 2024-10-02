@@ -8,6 +8,7 @@ import { getDatabase, ref, set, push } from "firebase/database";
 const Disclaimer = () => {
   const [inputs, setInputs] = useState({ age: 20, gender: "female" });
   const navigate = useNavigate();
+  const db = getDatabase(app);
 
   const handleChange = (event: {
     target: { name: string; value: number | string };
@@ -19,21 +20,15 @@ const Disclaimer = () => {
 
   const submitForm = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const db = getDatabase(app);
-    const userListRef = push(ref(db, "users"));
     const userId = window.crypto.randomUUID();
+    const userListRef = push(ref(db, `users/${userId}`));
     Cookies.set("keystroke-auth-research-tracking", userId, { expires: 365 });
     await set(userListRef, {
       user_id: userId,
       age: inputs.age,
       gender: inputs.gender,
-    }).catch((error) => alert(error));
-    const sessionListRef = push(ref(db, "sessions"));
-    await set(sessionListRef, {
-      user_id: userId,
-      session1: 1,
-      session2: 0,
-      session3: 0,
+      session: 0,
+      nextSessionTime: 0,
     }).catch((error) => alert(error));
     navigate("/task1");
     window.location.reload();
@@ -64,7 +59,7 @@ const Disclaimer = () => {
         The research will consist of three identical sessions, performed at a
         simiar time during the day. Therefore, please carry out all three
         sessions for data integrity. The sessions must be timed at least one day
-        apart.
+        apart, and will be available 13:00 - 19:00 CEST.
       </div>
       <div className="info-text">
         When doing the instructed tasks, simply focus on typing once you click
