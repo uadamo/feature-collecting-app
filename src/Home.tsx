@@ -14,21 +14,24 @@ const Home = () => {
   useEffect(() => {
     const fetchUser = async () => {
       if (userId) {
-        const userRef = query(ref(db, `users/${userId}`), limitToFirst(1));
+        const userRef = query(ref(db, `users/${userId}`));
         const userSnapshot = await get(userRef);
+        console.log(userSnapshot);
         if (userSnapshot.exists()) {
           const userObject = userSnapshot.val();
+          console.log(userObject);
           setUser_session(userObject.session);
         }
       }
     };
     fetchUser();
-  }, []);
+  }, [db, userId]);
   return (
     <div className="home">
       <div className="info">
         <h3>Investigating keystroke dynamics - a research initiative</h3>
         <div>Select a session to begin</div>
+        user session {user_session}
       </div>
 
       <div className="sessions">

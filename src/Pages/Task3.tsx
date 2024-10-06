@@ -17,7 +17,6 @@ import {
 const Task3 = () => {
   const [completed, setCompleted] = useState(false);
   const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
-  const [user_id, setUser_id] = useState("");
   const [user_age, setUser_age] = useState(0);
   const [user_gender, setUser_gender] = useState("");
   const [user_session, setUser_session] = useState(0);
@@ -29,7 +28,8 @@ const Task3 = () => {
   const question1 =
     "The accuracy of a keystroke dynamics authentication system may be affected by one's mood and energy level," +
     " among other personal factors. " +
-    "Describe your mood and energy level at the time of this session.";
+    "Describe your mood and energy level at the time of this session. Alternatively, tell us about your day - the " +
+    "objective is to get a feel of your regular typing rhythm.";
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -37,27 +37,27 @@ const Task3 = () => {
       const userSnapshot = await get(userRef);
       if (userSnapshot.exists()) {
         const userObject = userSnapshot.val();
-        setUser_id(userObject.user_id);
         setUser_age(userObject.age);
         setUser_gender(userObject.gender);
         setUser_session(userObject.session);
       }
     };
     fetchUser();
-  }, []);
+  }, [db, userId]);
 
   const handleFinishTask = async () => {
     const timestamp = currentDate.getTime();
-    const keystrokeListRef = push(ref(db, "task3"));
+    const keystrokeListRef = push(
+      ref(db, `task3/user-${userId}/session-${user_session}`)
+    );
     await set(keystrokeListRef, {
-      user_id: userId,
       keystroke_list: keystrokeList,
       end_time: endTime,
       timestamp: timestamp,
     }).catch((error) => alert(error));
     const userRef = ref(db, `users/${userId}`);
     set(userRef, {
-      user_id: user_id,
+      user_id: userId,
       age: user_age,
       gender: user_gender,
       session: user_session + 1,
@@ -111,7 +111,7 @@ const Task3 = () => {
       "task-input-field"
     ) as HTMLInputElement)!.value;
 
-    if (text.length > 50) {
+    if (text.length > 150) {
       setCompleted(true);
       const timestamp = currentDate.getTime();
       setEndTime(timestamp);
@@ -123,16 +123,16 @@ const Task3 = () => {
       <div className={classNames("task-description")}>
         <div className="task-header">
           <div className="task-title">
-            Task 3: Free typing
+            Task 5: Free typing
             <div className="tooltip">
               <button className={classNames("info-button")}>?</button>
               <span className="tooltiptext">
                 No time trigger here - just type away! A button to finish the
-                session will appear once you've hit the 50 character mark.
+                session will appear once you've hit the 150 character mark.
               </span>
             </div>
           </div>
-          Reason an answer for this easy question in 50 characters or more
+          Reason an answer for this easy question in 150 characters or more.
         </div>
       </div>
       <div className="task-content">
@@ -151,12 +151,14 @@ const Task3 = () => {
           //@ts-ignore
           onKeyUp={(event) => handleRegisterKeyup(event)}
           onInput={handleTextValidationExp1}
+          onPaste={(e) => e.preventDefault()}
         />
       </div>
 
       <button
-        className={classNames("next-task-button", { completed })}
+        className={classNames("next-task-button")}
         onClick={handleFinishTask}
+        disabled={!completed}
       >
         Finish session
       </button>

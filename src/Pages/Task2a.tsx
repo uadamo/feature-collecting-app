@@ -1,21 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Session.css";
-import { NavLink } from "react-router-dom";
 import classNames from "classnames";
+import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import { app } from "../firebase";
-import { getDatabase, ref, set, push } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  set,
+  push,
+  query,
+  limitToFirst,
+  get,
+} from "firebase/database";
 
 const Task2a = () => {
-  const exp2text1 = "The quick brown fox jumps over the lazy dog";
   const [enabled, setEnabled] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [startTime, setStartTime] = useState(0);
-  const [endTime, setEndTime] = useState(0);
+  const [iteration, setIteration] = useState(0);
   const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
-  const db = getDatabase(app);
+  const [reactionLatency, setReactionLatency] = useState(2000);
+  const [userSession, setUserSession] = useState(0);
+  const lodash = require("lodash");
   const currentDate = new Date();
+  const exp1text = "The quick brown fox jumps over the lazy dog";
+  const userId = Cookies.get("keystroke-auth-research-tracking");
+  const db = getDatabase(app);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userRef = query(ref(db, `users/${userId}`), limitToFirst(1));
+      const userSnapshot = await get(userRef);
+      if (userSnapshot.exists()) {
+        const userObject = userSnapshot.val();
+        setUserSession(userObject.session);
+      }
+    };
+    fetchUser();
+  }, [db, userId]);
+
   const handleStartTask = () => {
     setClicked(true);
     const timestamp = currentDate.getTime();
@@ -23,19 +48,19 @@ const Task2a = () => {
     setTimeout(() => {
       setEnabled(true);
       document.getElementById("task-input-field")!.focus();
-    }, 2700);
+    }, reactionLatency);
   };
 
   const handleFinishTask = async () => {
-    const userId = Cookies.get("keystroke-auth-research-tracking");
-    const timestamp = currentDate.getTime();
-    const keystrokeListRef = push(ref(db, "task2/taskA"));
+    const keystrokeListRef = push(
+      ref(db, `task2a/user-${userId}/session-${userSession}`)
+    );
     await set(keystrokeListRef, {
-      user_id: userId,
+      iteration: iteration,
+      reaction_latency: reactionLatency,
       start_time: startTime,
-      end_time: endTime,
+      end_time: currentDate.getTime(),
       keystroke_list: keystrokeList,
-      timestamp: timestamp,
     }).catch((error) => alert(error));
   };
 
@@ -63,8 +88,7 @@ const Task2a = () => {
     const timestamp = currentDate.getTime();
     const keyUpInfo = {
       eventName: "keyUp",
-      globalTimeStamp: timestamp,
-      timestamp: e.timeStamp,
+      timestamp: timestamp,
       key: e.key,
       code: e.code,
       location: e.location,
@@ -82,19 +106,29 @@ const Task2a = () => {
     const text = (document.getElementById(
       "task-input-field"
     ) as HTMLInputElement)!.value;
-
-    if (text === exp2text1) {
-      const timestamp = currentDate.getTime();
-      setEndTime(timestamp);
+    if (text === exp1text) {
+      handleFinishTask();
+      setKeyStrokeList([]);
+      setReactionLatency(lodash.random(2000, 6000));
       setCompleted(true);
     }
+  };
+
+  const handleContinue = () => {
+    setCompleted(false);
+    //setClicked(true);
+    setEnabled(false);
+    setIteration((iteration) => iteration + 1);
+    (document.getElementById("task-input-field") as HTMLInputElement)!.value =
+      "";
+    handleStartTask();
   };
 
   return (
     <div className="main-panel">
       <div className={classNames("task-description", { clicked })}>
         <div className="task-header">
-          <div className="task-title">
+          <div className={classNames("task-title")}>
             Task 2: Typing a phrase
             <div className="tooltip">
               <button className={classNames("info-button")}>?</button>
@@ -106,7 +140,8 @@ const Task2a = () => {
               </span>
             </div>
           </div>
-          Start typing the text once it turns red
+          Start task, and begin typing the text as soon as it turns{" "}
+          <b style={{ color: "red" }}>red</b>
         </div>
         <button className={classNames("task-button")} onClick={handleStartTask}>
           Start task
@@ -114,14 +149,13 @@ const Task2a = () => {
       </div>
       <div className="task-content">
         <div className={classNames("task-task-text", { enabled })}>
-          {exp2text1}
+          {exp1text}
         </div>
         <input
-          className="task-input-field"
+          className={classNames("task-input-field", enabled)}
           id="task-input-field"
           type="text"
           name="name"
-          required
           autoComplete="off"
           autoCorrect="off"
           //@ts-ignore
@@ -129,17 +163,28 @@ const Task2a = () => {
           //@ts-ignore
           onKeyUp={(event) => handleRegisterKeyup(event)}
           onInput={handleTextValidationExp1}
+          onPaste={(e) => e.preventDefault()}
         />
       </div>
       <div className="next-task-button-holder">
-        <NavLink to={"/task2b"} style={{ textDecoration: "none" }}>
-          <button
-            className={classNames("next-task-button", { completed })}
-            onClick={handleFinishTask}
-          >
-            Next task
-          </button>
-        </NavLink>
+        <div className="continue-task-panel">
+          {iteration < 10 && (
+            <div className="iteration-counter">{iteration}/10 attempts</div>
+          )}
+          {iteration < 10 && completed && (
+            <button className="repeat-task-button" onClick={handleContinue}>
+              Repeat task
+            </button>
+          )}
+        </div>
+
+        {completed && iteration >= 10 && (
+          <NavLink to={"/task2b"} style={{ textDecoration: "none" }}>
+            <button className="next-task-button" onClick={handleFinishTask}>
+              Next task
+            </button>
+          </NavLink>
+        )}
       </div>
     </div>
   );

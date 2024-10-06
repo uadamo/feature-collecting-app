@@ -1,21 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Session.css";
 import classNames from "classnames";
 import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import { app } from "../firebase";
-import { getDatabase, ref, set, push } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  set,
+  push,
+  query,
+  limitToFirst,
+  get,
+} from "firebase/database";
 
 const Task1 = () => {
   const [enabled, setEnabled] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [startTime, setStartTime] = useState(0);
-  const [endTime, setEndTime] = useState(0);
+  const [iteration, setIteration] = useState(0);
   const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
+  const [reactionLatency, setReactionLatency] = useState(2000);
+  const [userSession, setUserSession] = useState(0);
+  const lodash = require("lodash");
   const currentDate = new Date();
-  const exp1text = "9pVBj4J0";
+  const exp1text = "9pVBj4J0k2";
+  const userId = Cookies.get("keystroke-auth-research-tracking");
   const db = getDatabase(app);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userRef = query(ref(db, `users/${userId}`), limitToFirst(1));
+      const userSnapshot = await get(userRef);
+      if (userSnapshot.exists()) {
+        const userObject = userSnapshot.val();
+        setUserSession(userObject.session);
+      }
+    };
+    fetchUser();
+  }, [db, userId]);
+
   const handleStartTask = () => {
     setClicked(true);
     const timestamp = currentDate.getTime();
@@ -23,19 +48,19 @@ const Task1 = () => {
     setTimeout(() => {
       setEnabled(true);
       document.getElementById("task-input-field")!.focus();
-    }, 3500);
+    }, reactionLatency);
   };
 
   const handleFinishTask = async () => {
-    const userId = Cookies.get("keystroke-auth-research-tracking");
-    const timestamp = currentDate.getTime();
-    const keystrokeListRef = push(ref(db, "task1"));
+    const keystrokeListRef = push(
+      ref(db, `task1/user-${userId}/session-${userSession}`)
+    );
     await set(keystrokeListRef, {
-      user_id: userId,
+      iteration: iteration,
+      reaction_latency: reactionLatency,
       start_time: startTime,
-      end_time: endTime,
+      end_time: currentDate.getTime(),
       keystroke_list: keystrokeList,
-      timestamp: timestamp,
     }).catch((error) => alert(error));
   };
 
@@ -63,8 +88,7 @@ const Task1 = () => {
     const timestamp = currentDate.getTime();
     const keyUpInfo = {
       eventName: "keyUp",
-      globalTimeStamp: timestamp,
-      timestamp: e.timeStamp,
+      timestamp: timestamp,
       key: e.key,
       code: e.code,
       location: e.location,
@@ -83,10 +107,21 @@ const Task1 = () => {
       "task-input-field"
     ) as HTMLInputElement)!.value;
     if (text === exp1text) {
+      handleFinishTask();
+      setKeyStrokeList([]);
+      setReactionLatency(lodash.random(2000, 6000));
       setCompleted(true);
-      const timestamp = currentDate.getTime();
-      setEndTime(timestamp);
     }
+  };
+
+  const handleContinue = () => {
+    setCompleted(false);
+    //setClicked(true);
+    setEnabled(false);
+    setIteration((iteration) => iteration + 1);
+    (document.getElementById("task-input-field") as HTMLInputElement)!.value =
+      "";
+    handleStartTask();
   };
 
   return (
@@ -100,12 +135,13 @@ const Task1 = () => {
               <span className="tooltiptext">
                 The input field will focus automatically once the colour changes
                 - simply start typing then. Don't worry about making mistakes -
-                that is acceptable. Once the text has been typed in correctly, a
-                button leading to the next task will appear.
+                that is acceptable. Once the text has been typed in correctly 10
+                times, a button leading to the next task will appear.
               </span>
             </div>
           </div>
-          Start typing the text once it turns red
+          Start task, and begin typing the text as soon as it turns{" "}
+          <b style={{ color: "red" }}>red</b>
         </div>
         <button className={classNames("task-button")} onClick={handleStartTask}>
           Start task
@@ -116,11 +152,10 @@ const Task1 = () => {
           {exp1text}
         </div>
         <input
-          className="task-input-field"
+          className={classNames("task-input-field", enabled)}
           id="task-input-field"
           type="text"
           name="name"
-          required
           autoComplete="off"
           autoCorrect="off"
           //@ts-ignore
@@ -128,17 +163,28 @@ const Task1 = () => {
           //@ts-ignore
           onKeyUp={(event) => handleRegisterKeyup(event)}
           onInput={handleTextValidationExp1}
+          onPaste={(e) => e.preventDefault()}
         />
       </div>
       <div className="next-task-button-holder">
-        <NavLink to={"/task2a"} style={{ textDecoration: "none" }}>
-          <button
-            className={classNames("next-task-button", { completed })}
-            onClick={handleFinishTask}
-          >
-            Next task
-          </button>
-        </NavLink>
+        <div className="continue-task-panel">
+          {iteration < 10 && (
+            <div className="iteration-counter">{iteration}/10 attempts</div>
+          )}
+          {iteration < 10 && completed && (
+            <button className="repeat-task-button" onClick={handleContinue}>
+              Repeat task
+            </button>
+          )}
+        </div>
+
+        {completed && iteration >= 10 && (
+          <NavLink to={"/task2a"} style={{ textDecoration: "none" }}>
+            <button className="next-task-button" onClick={handleFinishTask}>
+              Next task
+            </button>
+          </NavLink>
+        )}
       </div>
     </div>
   );

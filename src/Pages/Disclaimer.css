@@ -1,7 +1,7 @@
 .main-panel {
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 40px;
 }
 .info-header {
   font-size: large;
