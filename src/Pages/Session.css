@@ -1,9 +1,9 @@
 .main-panel {
   padding: 10px 400px;
-  margin-top: 4rem;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  row-gap: 5rem;
+  row-gap: 20px;
   height: 80%;
 }
 .task-description {
@@ -24,9 +24,8 @@
 
 .task-button {
   background-color: white;
-  border: lightgrey 1px solid;
+  border: black 1px solid;
   font-size: large;
-  border-radius: 10px;
   padding: 10px 20px;
   transition: background-color 0.3s linear;
 }
@@ -50,7 +49,7 @@
   height: 25px;
   width: 25px;
   border-radius: 100%;
-  border: lightgrey 1px solid;
+  border: black 1px solid;
   background-color: white;
   transition: background-color 0.3s linear;
 }
@@ -93,10 +92,9 @@
 .next-task-button {
   display: flex;
   min-width: 7.4rem;
-  border: lightgray 1px solid;
+  border: black 1px solid;
   background-color: white;
   font-size: large;
-  border-radius: 10px;
   padding: 10px 20px;
   transition: background-color 0.3s linear;
 }
@@ -146,7 +144,7 @@
   font-weight: lighter;
   color: black;
   padding: 10px;
-  border: lightgrey 1px solid;
+  border: black 1px solid;
   border-radius: 10px;
   position: absolute;
   z-index: 1;
@@ -162,10 +160,9 @@
 }
 .repeat-task-button {
   display: flex;
-  border: lightgray 1px solid;
+  border: black 1px solid;
   background-color: white;
   font-size: large;
-  border-radius: 10px;
   padding: 10px 20px;
   transition: background-color 0.3s linear;
 }

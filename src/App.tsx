@@ -11,6 +11,7 @@ import { Task3 } from "./Pages/Task3";
 import NavBar from "./Navbar";
 import { Disclaimer } from "./Pages/Disclaimer";
 import Cookies from "js-cookie";
+import Footer from "./Footer";
 
 function App() {
   const userId = Cookies.get("keystroke-auth-research-tracking");
@@ -42,6 +43,7 @@ function App() {
           element={userId ? <Task3 /> : <Navigate to="/disclaimer" />}
         />
       </Routes>
+      <Footer />
     </>
   );
 }

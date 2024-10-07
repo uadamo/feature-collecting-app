@@ -2,8 +2,8 @@
   padding: 10px 40px;
   display: flex;
   flex-direction: column;
-  height: 80%;
-  row-gap: 30px;
+  height: 75%;
+  row-gap: 50px;
 }
 
 .info {
@@ -24,8 +24,7 @@
 .session-tab {
   height: 200px;
   aspect-ratio: 16 / 9;
-  border: 1px solid lightgrey;
-  border-radius: 10px;
+  border: 1px solid black;
   display: flex;
   flex-direction: column;
   row-gap: 10px;

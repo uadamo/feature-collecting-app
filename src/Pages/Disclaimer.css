@@ -1,7 +1,7 @@
 .main-panel {
   display: flex;
   flex-direction: column;
-  row-gap: 40px;
+  row-gap: 20px;
 }
 .info-header {
   font-size: large;
@@ -9,6 +9,7 @@
 }
 .info-text {
   font-size: smaller;
+  text-align: justify;
 }
 
 .info-text-highlighted {
@@ -38,13 +39,19 @@
 .submit-button {
   padding: 5px;
   margin: 10px;
-  border: lightgray 1px solid;
+  border: black 1px solid;
   background-color: white;
   font-size: large;
-  border-radius: 10px;
   padding: 10px 20px;
   transition: background-color 0.3s linear;
 }
 .submit-button:hover {
   background-color: lightgray;
+}
+
+.into-text-signature {
+  align-self: end;
+  font-size: smaller;
+  font-weight: 500;
+  font-size: medium;
 }

@@ -53,7 +53,7 @@ const Disclaimer = () => {
         application will grant your browser a cookie, which will serve as an
         identifier for upcoming sessions. Please don't clear this cookie,
         <i> keystroke-auth-research-tracking </i>, before you've finished the
-        three sessions.
+        three sessions. <b>Make sure you aren't in incognito mode.</b>
       </div>
       <div className="info-text">
         The research will consist of three identical sessions, performed at a
