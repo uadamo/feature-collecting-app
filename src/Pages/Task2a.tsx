@@ -17,7 +17,7 @@ const Task2a = () => {
   const [user, setUser] = useState<userObject>({});
   const lodash = require("lodash");
   const currentDate = new Date();
-  const exp1text = "The quick brown fox jumps over the lazy dog";
+  const exp1text = "the quick brown fox jumps over the lazy dog";
   const userId = Cookies.get("keystroke-auth-research-tracking");
   const db = getDatabase(app);
 

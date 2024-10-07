@@ -63,6 +63,7 @@
   box-sizing: border-box;
   width: 100%;
   border: none;
+  pointer-events: none;
 }
 
 .task-input-field.enabled {
