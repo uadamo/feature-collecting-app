@@ -41,9 +41,9 @@ const Task3 = () => {
       if (userSnapshot.exists()) {
         const currentUser = userSnapshot.val();
         const key = Object.keys(currentUser)[0];
-        console.log(key);
-        console.log(currentUser[key]);
         setUser(currentUser[key]);
+        console.log(currentUser);
+        console.log(currentUser[key]);
       }
     };
     fetchUser();
