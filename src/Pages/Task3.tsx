@@ -69,8 +69,7 @@ const Task3 = () => {
       end_time: endTime,
       timestamp: timestamp,
     }).catch((error) => alert(error));
-    const userListRef = push(ref(db, `users/${userId}/${key}`));
-    await update(userListRef, {
+    await update(ref(db, `users/${userId}/${key}`), {
       session: Number(user.session) + 1,
       nextSessionTime: timestamp + 3600000 * 24,
     }).catch((error) => alert(error));
