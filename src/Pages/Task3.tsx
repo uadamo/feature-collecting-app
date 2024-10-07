@@ -59,15 +59,14 @@ const Task3 = () => {
       end_time: endTime,
       timestamp: timestamp,
     }).catch((error) => alert(error));
-    const userRef = ref(db, `users/${userId}`);
-    set(userRef, {
+    const userListRef = push(ref(db, `users/${userId}`));
+    await set(userListRef, {
       user_id: userId,
       age: user.age,
       gender: user.gender,
       session: Number(user.session) + 1,
       nextSessionTime: timestamp + 1000 * 60,
-      //nextSessionTime: timestamp + 24 * 3600000,
-    });
+    }).catch((error) => alert(error));
     navigate("/");
     window.location.reload();
   };
