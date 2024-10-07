@@ -4,7 +4,15 @@ import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import Cookies from "js-cookie";
 import { app } from "../firebase";
-import { getDatabase, ref, set, push, get, query } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  set,
+  push,
+  get,
+  query,
+  update,
+} from "firebase/database";
 
 type userValues = {
   user_id: string;
@@ -27,6 +35,7 @@ const Task3 = () => {
   const db = getDatabase(app);
   const userId = Cookies.get("keystroke-auth-research-tracking");
   const currentDate = new Date();
+  const [key, setKey] = useState("");
 
   const question1 =
     "The accuracy of a keystroke dynamics authentication system may be affected by one's mood and energy level," +
@@ -42,6 +51,7 @@ const Task3 = () => {
         const currentUser = userSnapshot.val();
         const key = Object.keys(currentUser)[0];
         setUser(currentUser[key]);
+        setKey(key);
         console.log(currentUser);
         console.log(currentUser[key]);
       }
@@ -59,11 +69,8 @@ const Task3 = () => {
       end_time: endTime,
       timestamp: timestamp,
     }).catch((error) => alert(error));
-    const userListRef = push(ref(db, `users/${userId}`));
-    await set(userListRef, {
-      user_id: userId,
-      age: user.age,
-      gender: user.gender,
+    const userListRef = push(ref(db, `users/${userId}/key`));
+    await update(userListRef, {
       session: Number(user.session) + 1,
       nextSessionTime: timestamp + 3600000 * 24,
     }).catch((error) => alert(error));
