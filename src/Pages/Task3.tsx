@@ -6,12 +6,22 @@ import Cookies from "js-cookie";
 import { app } from "../firebase";
 import { getDatabase, ref, set, push, get, query } from "firebase/database";
 
+type userValues = {
+  user_id: string;
+  age: number;
+  gender: string;
+  session: number;
+  nextSessionTime: number;
+};
+
+type userObject = {
+  [key: string]: userValues;
+};
+
 const Task3 = () => {
   const [completed, setCompleted] = useState(false);
   const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
-  const [user_age, setUser_age] = useState(0);
-  const [user_gender, setUser_gender] = useState("");
-  const [user_session, setUser_session] = useState(0);
+  const [user, setUser] = useState<userObject>({});
   const [endTime, setEndTime] = useState(0);
   const navigate = useNavigate();
   const db = getDatabase(app);
@@ -31,11 +41,9 @@ const Task3 = () => {
       if (userSnapshot.exists()) {
         const currentUser = userSnapshot.val();
         const key = Object.keys(currentUser)[0];
-        console.log(currentUser[key].age);
-        console.log(currentUser[key].gender);
-        setUser_age(currentUser[key].age);
-        setUser_gender(currentUser[key].gender);
-        setUser_session(currentUser[key].session);
+        console.log(key);
+        console.log(currentUser[key]);
+        setUser(currentUser[key]);
       }
     };
     fetchUser();
@@ -44,7 +52,7 @@ const Task3 = () => {
   const handleFinishTask = async () => {
     const timestamp = currentDate.getTime();
     const keystrokeListRef = push(
-      ref(db, `task3/user-${userId}/session-${user_session}`)
+      ref(db, `task3/user-${userId}/session-${user.session}`)
     );
     await set(keystrokeListRef, {
       keystroke_list: keystrokeList,
@@ -54,9 +62,9 @@ const Task3 = () => {
     const userRef = ref(db, `users/${userId}`);
     set(userRef, {
       user_id: userId,
-      age: user_age,
-      gender: user_gender,
-      session: user_session + 1,
+      age: user.age,
+      gender: user.gender,
+      session: Number(user.session) + 1,
       nextSessionTime: timestamp + 1000 * 60,
       //nextSessionTime: timestamp + 24 * 3600000,
     });

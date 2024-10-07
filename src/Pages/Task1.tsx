@@ -5,7 +5,17 @@ import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import { app } from "../firebase";
 import { getDatabase, ref, set, push, query, get } from "firebase/database";
+type userValues = {
+  user_id: string;
+  age: number;
+  gender: string;
+  session: number;
+  nextSessionTime: number;
+};
 
+type userObject = {
+  [key: string]: userValues;
+};
 const Task1 = () => {
   const [enabled, setEnabled] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -20,17 +30,6 @@ const Task1 = () => {
   const exp1text = "qu!faB8*en";
   const userId = Cookies.get("keystroke-auth-research-tracking");
   const db = getDatabase(app);
-  type userValues = {
-    user_id: string;
-    age: number;
-    gender: string;
-    session: number;
-    nextSessionTime: number;
-  };
-
-  type userObject = {
-    [key: string]: userValues;
-  };
 
   useEffect(() => {
     const fetchUser = async () => {
