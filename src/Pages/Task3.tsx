@@ -31,6 +31,7 @@ const Task3 = () => {
       if (userSnapshot.exists()) {
         const currentUser = userSnapshot.val();
         const key = Object.keys(currentUser)[0];
+        console.log(currentUser[key].age);
 
         setUser_age(currentUser[key].age);
         setUser_gender(currentUser[key].gender);
