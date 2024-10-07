@@ -32,7 +32,7 @@ const Task3 = () => {
         const currentUser = userSnapshot.val();
         const key = Object.keys(currentUser)[0];
         console.log(currentUser[key].age);
-
+        console.log(currentUser[key].gender);
         setUser_age(currentUser[key].age);
         setUser_gender(currentUser[key].gender);
         setUser_session(currentUser[key].session);
