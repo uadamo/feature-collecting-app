@@ -47,7 +47,7 @@ const Home = () => {
             enabled:
               user_session === 0 &&
               moment(currentTime).get("hours") >= 12 &&
-              moment(currentTime).get("hours") < 21,
+              moment(currentTime).get("hours") < 22,
           })}
           to="/task1"
         >
@@ -68,7 +68,7 @@ const Home = () => {
               user_session === 1 &&
               next_session_time < currentTime &&
               moment(currentTime).get("hours") >= 12 &&
-              moment(currentTime).get("hours") < 21,
+              moment(currentTime).get("hours") < 22,
           })}
           to="/task1"
         >
@@ -91,7 +91,7 @@ const Home = () => {
               user_session === 2 &&
               next_session_time < currentTime &&
               moment(currentTime).get("hours") >= 12 &&
-              moment(currentTime).get("hours") < 21,
+              moment(currentTime).get("hours") < 22,
           })}
           to="/task1"
         >

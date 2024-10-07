@@ -173,7 +173,7 @@ const Task2b = () => {
       </div>
       <div className="next-task-button-holder">
         <div className="continue-task-panel">
-          {iteration < 10 && (
+          {iteration < 11 && (
             <div className="iteration-counter">{iteration}/10 attempts</div>
           )}
           {iteration < 10 && completed && (
