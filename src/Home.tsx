@@ -24,8 +24,6 @@ const Home = () => {
         const key = Object.keys(currentUser)[0];
         setUser_session(currentUser[key].session);
         setNext_session_time(currentUser[key].nextSessionTime);
-        console.log(currentUser);
-        console.log(currentUser[key]);
       }
     };
     fetchUser();
@@ -98,7 +96,10 @@ const Home = () => {
         >
           {user_session <= 2 && <div>Session 3 </div>}
           {user_session === 2 && next_session_time > currentTime && (
-            <div>{moment(next_session_time).format("yyyy/MM/DD HH:mm:ss")}</div>
+            <div>
+              The session opens at{" "}
+              {moment(next_session_time).format("yyyy/MM/DD HH:mm:ss")}
+            </div>
           )}
           {user_session > 2 && (
             <div>

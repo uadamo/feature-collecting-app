@@ -52,8 +52,6 @@ const Task3 = () => {
         const key = Object.keys(currentUser)[0];
         setUser(currentUser[key]);
         setKey(key);
-        console.log(currentUser);
-        console.log(currentUser[key]);
       }
     };
     fetchUser();
