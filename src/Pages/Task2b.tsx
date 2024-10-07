@@ -11,7 +11,7 @@ const Task2b = () => {
   const [clicked, setClicked] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [startTime, setStartTime] = useState(0);
-  const [iteration, setIteration] = useState(0);
+  const [iteration, setIteration] = useState(1);
   const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
   const [user, setUser] = useState<userObject>({});
   const [reactionLatency, setReactionLatency] = useState(2000);
