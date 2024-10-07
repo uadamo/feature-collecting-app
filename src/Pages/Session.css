@@ -92,7 +92,7 @@
 
 .next-task-button {
   display: flex;
-  min-width: 7.4rem;
+  width: fit-content;
   border: black 1px solid;
   background-color: white;
   font-size: large;

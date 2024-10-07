@@ -56,7 +56,8 @@ const Task3 = () => {
       age: user_age,
       gender: user_gender,
       session: user_session + 1,
-      nextSessionTime: timestamp + 24 * 3600000,
+      nextSessionTime: timestamp + 1000 * 60,
+      //nextSessionTime: timestamp + 24 * 3600000,
     });
     navigate("/");
     window.location.reload();
@@ -133,7 +134,7 @@ const Task3 = () => {
       <div className="task-content">
         {question1}
         <input
-          className="task-input-field"
+          className={classNames("task-input-field", "enabled")}
           id="task-input-field"
           type="text"
           name="name"

@@ -59,7 +59,7 @@ const Disclaimer = () => {
         The research will consist of three identical sessions, performed at a
         simiar time during the day. Therefore, please carry out all three
         sessions for data integrity. The sessions must be timed at least one day
-        apart, and will be available 13:00 - 19:00 CEST.
+        apart, and will be available 12:00 - 19:00 CEST.
       </div>
       <div className="info-text">
         When doing the instructed tasks, simply focus on typing once you click

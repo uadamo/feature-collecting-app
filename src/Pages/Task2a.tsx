@@ -114,7 +114,7 @@ const Task2a = () => {
     if (text === exp1text) {
       handleFinishTask();
       setKeyStrokeList([]);
-      setReactionLatency(lodash.random(2000, 6000));
+      setReactionLatency(lodash.random(2000, 7000));
       setCompleted(true);
     }
   };
@@ -157,7 +157,7 @@ const Task2a = () => {
           {exp1text}
         </div>
         <input
-          className={classNames("task-input-field", enabled)}
+          className={classNames("task-input-field", { enabled })}
           id="task-input-field"
           type="text"
           name="name"

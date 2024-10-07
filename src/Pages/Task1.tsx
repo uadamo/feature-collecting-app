@@ -17,7 +17,7 @@ const Task1 = () => {
   const [user, setUser] = useState<userObject>({});
   const lodash = require("lodash");
   const currentDate = new Date();
-  const exp1text = "aquL3fodoS28";
+  const exp1text = "qu!faB8*en";
   const userId = Cookies.get("keystroke-auth-research-tracking");
   const db = getDatabase(app);
   type userValues = {
@@ -113,7 +113,7 @@ const Task1 = () => {
     if (text === exp1text) {
       handleFinishTask();
       setKeyStrokeList([]);
-      setReactionLatency(lodash.random(2000, 6000));
+      setReactionLatency(lodash.random(2000, 7000));
       setCompleted(true);
     }
   };
@@ -156,7 +156,7 @@ const Task1 = () => {
           {exp1text}
         </div>
         <input
-          className={classNames("task-input-field", enabled)}
+          className={classNames("task-input-field", { enabled })}
           id="task-input-field"
           type="text"
           name="name"

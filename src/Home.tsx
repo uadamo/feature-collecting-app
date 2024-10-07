@@ -35,12 +35,19 @@ const Home = () => {
       <div className="info">
         <h3>Investigating keystroke dynamics - a research initiative</h3>
         <div>Select a session to begin</div>
+        {(moment(currentTime).get("hours") >= 21 ||
+          moment(currentTime).get("hours") < 12) && (
+          <div>Sessions are open between 12:00 and 19:00 CEST</div>
+        )}
       </div>
 
       <div className="sessions">
         <NavLink
           className={classNames("session-tab", {
-            enabled: user_session === 0,
+            enabled:
+              user_session === 0 &&
+              moment(currentTime).get("hours") >= 12 &&
+              moment(currentTime).get("hours") < 21,
           })}
           to="/task1"
         >
@@ -57,7 +64,11 @@ const Home = () => {
         </NavLink>
         <NavLink
           className={classNames("session-tab", {
-            enabled: user_session === 1 && next_session_time < currentTime,
+            enabled:
+              user_session === 1 &&
+              next_session_time < currentTime &&
+              moment(currentTime).get("hours") >= 12 &&
+              moment(currentTime).get("hours") < 21,
           })}
           to="/task1"
         >
@@ -65,7 +76,7 @@ const Home = () => {
           {user_session === 1 && next_session_time > currentTime && (
             <div>
               The session opens at{" "}
-              {moment(next_session_time).format("yyyy/MM/DD hh:mm:ss")}
+              {moment(next_session_time).format("yyyy/MM/DD HH:mm:ss")}
             </div>
           )}
           {user_session > 1 && (
@@ -76,13 +87,17 @@ const Home = () => {
         </NavLink>
         <NavLink
           className={classNames("session-tab", {
-            enabled: user_session === 2 && next_session_time < currentTime,
+            enabled:
+              user_session === 2 &&
+              next_session_time < currentTime &&
+              moment(currentTime).get("hours") >= 12 &&
+              moment(currentTime).get("hours") < 21,
           })}
           to="/task1"
         >
           {user_session <= 2 && <div>Session 3 </div>}
           {user_session === 2 && next_session_time > currentTime && (
-            <div>{moment(next_session_time).format("yyyy/MM/DD hh:mm:ss")}</div>
+            <div>{moment(next_session_time).format("yyyy/MM/DD HH:mm:ss")}</div>
           )}
           {user_session > 2 && (
             <div>
