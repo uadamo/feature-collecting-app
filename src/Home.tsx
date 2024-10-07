@@ -3,7 +3,7 @@ import "./Home.css";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
 import { app } from "./firebase";
-import { getDatabase, ref, get, query } from "firebase/database";
+import { getDatabase, ref, get, query, remove } from "firebase/database";
 import Cookies from "js-cookie";
 import moment from "moment";
 
@@ -35,7 +35,7 @@ const Home = () => {
       <div className="info">
         <h3>Investigating keystroke dynamics - a research initiative</h3>
         <div>Select a session to begin</div>
-        {(moment(currentTime).get("hours") >= 21 ||
+        {(moment(currentTime).get("hours") >= 19 ||
           moment(currentTime).get("hours") < 12) && (
           <div>Sessions are open between 12:00 and 19:00 CEST</div>
         )}
@@ -47,7 +47,7 @@ const Home = () => {
             enabled:
               user_session === 0 &&
               moment(currentTime).get("hours") >= 12 &&
-              moment(currentTime).get("hours") < 22,
+              moment(currentTime).get("hours") < 19,
           })}
           to="/task1"
         >
@@ -68,7 +68,7 @@ const Home = () => {
               user_session === 1 &&
               next_session_time < currentTime &&
               moment(currentTime).get("hours") >= 12 &&
-              moment(currentTime).get("hours") < 22,
+              moment(currentTime).get("hours") < 19,
           })}
           to="/task1"
         >
@@ -91,7 +91,7 @@ const Home = () => {
               user_session === 2 &&
               next_session_time < currentTime &&
               moment(currentTime).get("hours") >= 12 &&
-              moment(currentTime).get("hours") < 22,
+              moment(currentTime).get("hours") < 19,
           })}
           to="/task1"
         >

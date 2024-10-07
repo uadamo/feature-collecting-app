@@ -65,7 +65,7 @@ const Task3 = () => {
       age: user.age,
       gender: user.gender,
       session: Number(user.session) + 1,
-      nextSessionTime: timestamp + 1000 * 60,
+      nextSessionTime: timestamp + 3600000 * 24,
     }).catch((error) => alert(error));
     navigate("/");
     window.location.reload();
