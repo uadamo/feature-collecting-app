@@ -4,15 +4,7 @@ import classNames from "classnames";
 import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import { app } from "../firebase";
-import {
-  getDatabase,
-  ref,
-  set,
-  push,
-  query,
-  limitToFirst,
-  get,
-} from "firebase/database";
+import { getDatabase, ref, set, push, query, get } from "firebase/database";
 
 const Task1 = () => {
   const [enabled, setEnabled] = useState(false);
@@ -22,20 +14,32 @@ const Task1 = () => {
   const [iteration, setIteration] = useState(0);
   const [keystrokeList, setKeyStrokeList] = useState<{}[]>([]);
   const [reactionLatency, setReactionLatency] = useState(2000);
-  const [userSession, setUserSession] = useState(0);
+  const [user, setUser] = useState<userObject>({});
   const lodash = require("lodash");
   const currentDate = new Date();
   const exp1text = "Aqui3fodoS28";
   const userId = Cookies.get("keystroke-auth-research-tracking");
   const db = getDatabase(app);
+  type userValues = {
+    user_id: string;
+    age: number;
+    gender: string;
+    session: number;
+    nextSessionTime: number;
+  };
+
+  type userObject = {
+    [key: string]: userValues;
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userRef = query(ref(db, `users/${userId}`), limitToFirst(1));
+      const userRef = query(ref(db, `users/${userId}`));
       const userSnapshot = await get(userRef);
       if (userSnapshot.exists()) {
-        const userObject = userSnapshot.val();
-        setUserSession(userObject.session);
+        const currentUser = userSnapshot.val();
+        const key = Object.keys(currentUser)[0];
+        setUser(currentUser[key]);
       }
     };
     fetchUser();
@@ -53,7 +57,7 @@ const Task1 = () => {
 
   const handleFinishTask = async () => {
     const keystrokeListRef = push(
-      ref(db, `task1/user-${userId}/session-${userSession}`)
+      ref(db, `task1/user-${userId}/session-${user.session}`)
     );
     await set(keystrokeListRef, {
       iteration: iteration,

@@ -39,12 +39,12 @@ const Home = () => {
 
       <div className="sessions">
         <NavLink
-          className={classNames("navbar-item", {
+          className={classNames("session-tab", {
             enabled: user_session === 0,
           })}
           to="/task1"
         >
-          <div className="session-tab">
+          <div>
             {user_session === 0 && <div>Session 1 </div>}
             {user_session > 0 && (
               <div>
@@ -56,49 +56,41 @@ const Home = () => {
           </div>
         </NavLink>
         <NavLink
-          className={classNames("navbar-item", {
+          className={classNames("session-tab", {
             enabled: user_session === 1 && next_session_time < currentTime,
           })}
           to="/task1"
         >
-          <div className="session-tab">
-            {user_session <= 1 && <div>Session 2 </div>}
-            {user_session === 1 && next_session_time > currentTime && (
-              <div>
-                The session opens at{" "}
-                {moment(next_session_time).format("yyyy/MM/DD hh:mm:ss")}
-              </div>
-            )}
-            {user_session > 1 && (
-              <div>
-                <div className="session-completed">
-                  You have completed this session
-                </div>
-              </div>
-            )}
-          </div>
+          {user_session <= 1 && <div>Session 2 </div>}
+          {user_session === 1 && next_session_time > currentTime && (
+            <div>
+              The session opens at{" "}
+              {moment(next_session_time).format("yyyy/MM/DD hh:mm:ss")}
+            </div>
+          )}
+          {user_session > 1 && (
+            <div>
+              <div>You have completed this session</div>
+            </div>
+          )}
         </NavLink>
         <NavLink
-          className={classNames("navbar-item", {
+          className={classNames("session-tab", {
             enabled: user_session === 2 && next_session_time < currentTime,
           })}
           to="/task1"
         >
-          <div className="session-tab">
-            {user_session <= 2 && <div>Session 3 </div>}
-            {user_session === 2 && next_session_time > currentTime && (
-              <div>
-                {moment(next_session_time).format("yyyy/MM/DD hh:mm:ss")}
+          {user_session <= 2 && <div>Session 3 </div>}
+          {user_session === 2 && next_session_time > currentTime && (
+            <div>{moment(next_session_time).format("yyyy/MM/DD hh:mm:ss")}</div>
+          )}
+          {user_session > 2 && (
+            <div>
+              <div className="session-completed">
+                You have completed this session
               </div>
-            )}
-            {user_session > 2 && (
-              <div>
-                <div className="session-completed">
-                  You have completed this session
-                </div>
-              </div>
-            )}
-          </div>
+            </div>
+          )}
         </NavLink>
       </div>
     </div>

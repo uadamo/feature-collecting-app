@@ -31,9 +31,13 @@
   align-content: center;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
+  opacity: 0.5;
+  text-decoration: none;
+  color: black;
 }
 
-.enabled {
+.session-tab.enabled {
   opacity: 1;
   pointer-events: all;
 }

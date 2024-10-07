@@ -4,15 +4,7 @@ import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import Cookies from "js-cookie";
 import { app } from "../firebase";
-import {
-  getDatabase,
-  ref,
-  set,
-  push,
-  get,
-  query,
-  limitToFirst,
-} from "firebase/database";
+import { getDatabase, ref, set, push, get, query } from "firebase/database";
 
 const Task3 = () => {
   const [completed, setCompleted] = useState(false);
@@ -25,6 +17,7 @@ const Task3 = () => {
   const db = getDatabase(app);
   const userId = Cookies.get("keystroke-auth-research-tracking");
   const currentDate = new Date();
+
   const question1 =
     "The accuracy of a keystroke dynamics authentication system may be affected by one's mood and energy level," +
     " among other personal factors. " +
@@ -33,13 +26,15 @@ const Task3 = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userRef = query(ref(db, `users/${userId}`), limitToFirst(1));
+      const userRef = query(ref(db, `users/${userId}`));
       const userSnapshot = await get(userRef);
       if (userSnapshot.exists()) {
-        const userObject = userSnapshot.val();
-        setUser_age(userObject.age);
-        setUser_gender(userObject.gender);
-        setUser_session(userObject.session);
+        const currentUser = userSnapshot.val();
+        const key = Object.keys(currentUser)[0];
+
+        setUser_age(currentUser[key].age);
+        setUser_gender(currentUser[key].gender);
+        setUser_session(currentUser[key].session);
       }
     };
     fetchUser();
@@ -61,7 +56,7 @@ const Task3 = () => {
       age: user_age,
       gender: user_gender,
       session: user_session + 1,
-      nextSessionTime: timestamp + 3600000,
+      nextSessionTime: timestamp + 24 * 3600000,
     });
     navigate("/");
     window.location.reload();
@@ -111,7 +106,7 @@ const Task3 = () => {
       "task-input-field"
     ) as HTMLInputElement)!.value;
 
-    if (text.length > 150) {
+    if (text.length > 100) {
       setCompleted(true);
       const timestamp = currentDate.getTime();
       setEndTime(timestamp);
@@ -128,11 +123,11 @@ const Task3 = () => {
               <button className={classNames("info-button")}>?</button>
               <span className="tooltiptext">
                 No time trigger here - just type away! A button to finish the
-                session will appear once you've hit the 150 character mark.
+                session will appear once you've hit the 100 character mark.
               </span>
             </div>
           </div>
-          Reason an answer for this easy question in 150 characters or more.
+          Reason an answer for this easy question in 100 characters or more.
         </div>
       </div>
       <div className="task-content">
