@@ -1,0 +1,23 @@
+.main-panel-about {
+  padding: 10px 300px;
+  margin-top: 4rem;
+  display: flex;
+  row-gap: 5rem;
+  height: 80%;
+  justify-content: space-around;
+}
+
+.info-text-section-about {
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.info-header-about {
+  font-size: larger;
+}
+
+.info-text-about {
+  font-size: small;
+}

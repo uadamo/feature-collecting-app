@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Home";
+import About from "./Pages/About";
 import { Task1 } from "./Pages/Task1";
 import { Task2a } from "./Pages/Task2a";
 import { Task2b } from "./Pages/Task2b";
@@ -18,6 +19,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route
           path="/task1"
