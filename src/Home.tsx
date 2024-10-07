@@ -15,20 +15,19 @@ const Home = () => {
   const currentDate = new Date();
   const currentTime = currentDate.getTime();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (userId) {
-        const userRef = query(ref(db, `users/${userId}`));
-        const userSnapshot = await get(userRef);
-        if (userSnapshot.exists()) {
-          const userObject = userSnapshot.val();
-          setUser_session(userObject.session);
-          setNext_session_time(userObject.nextSessionTime);
-        }
-      }
-    };
-    fetchUser();
-  }, [db, userId]);
+  const fetchUser = async () => {
+    const userRef = query(ref(db, `users/${userId}`));
+    const userSnapshot = await get(userRef);
+    if (userSnapshot.exists()) {
+      const currentUser = userSnapshot.val();
+      const key = Object.keys(currentUser)[0];
+      setUser_session(currentUser[key].session);
+      setNext_session_time(currentUser[key].nextSessionTime);
+      console.log(currentUser);
+      console.log(currentUser[key]);
+    }
+  };
+  fetchUser();
 
   return (
     <div className="home">
