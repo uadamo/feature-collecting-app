@@ -3,7 +3,7 @@ import "./Home.css";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
 import { app } from "./firebase";
-import { getDatabase, ref, get, query, remove } from "firebase/database";
+import { getDatabase, ref, get, query } from "firebase/database";
 import Cookies from "js-cookie";
 import moment from "moment";
 
@@ -15,19 +15,21 @@ const Home = () => {
   const currentDate = new Date();
   const currentTime = currentDate.getTime();
 
-  const fetchUser = async () => {
-    const userRef = query(ref(db, `users/${userId}`));
-    const userSnapshot = await get(userRef);
-    if (userSnapshot.exists()) {
-      const currentUser = userSnapshot.val();
-      const key = Object.keys(currentUser)[0];
-      setUser_session(currentUser[key].session);
-      setNext_session_time(currentUser[key].nextSessionTime);
-      console.log(currentUser);
-      console.log(currentUser[key]);
-    }
-  };
-  fetchUser();
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userRef = query(ref(db, `users/${userId}`));
+      const userSnapshot = await get(userRef);
+      if (userSnapshot.exists()) {
+        const currentUser = userSnapshot.val();
+        const key = Object.keys(currentUser)[0];
+        setUser_session(currentUser[key].session);
+        setNext_session_time(currentUser[key].nextSessionTime);
+        console.log(currentUser);
+        console.log(currentUser[key]);
+      }
+    };
+    fetchUser();
+  }, [db, userId]);
 
   return (
     <div className="home">
