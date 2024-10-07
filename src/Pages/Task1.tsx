@@ -25,7 +25,7 @@ const Task1 = () => {
   const [userSession, setUserSession] = useState(0);
   const lodash = require("lodash");
   const currentDate = new Date();
-  const exp1text = "9pVBj4J0k2";
+  const exp1text = "Aqui3fodoS28";
   const userId = Cookies.get("keystroke-auth-research-tracking");
   const db = getDatabase(app);
 

@@ -43,10 +43,10 @@
   background-color: white;
   font-size: large;
   padding: 10px 20px;
-  transition: background-color 0.3s linear;
+  transition: color 0.3s linear;
 }
 .submit-button:hover {
-  background-color: lightgray;
+  color: lightgray;
 }
 
 .into-text-signature {
