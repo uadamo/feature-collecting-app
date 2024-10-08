@@ -150,6 +150,7 @@ const Task3 = () => {
           id="task-input-field"
           type="text"
           name="name"
+          data-1p-ignore
           required
           autoFocus
           autoComplete="off"

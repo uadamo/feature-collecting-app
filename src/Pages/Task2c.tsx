@@ -159,6 +159,7 @@ const Task2c = () => {
           id="task-input-field"
           type="text"
           name="name"
+          data-1p-ignore
           autoComplete="off"
           autoCorrect="off"
           //@ts-ignore

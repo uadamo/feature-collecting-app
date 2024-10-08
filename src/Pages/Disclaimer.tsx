@@ -68,7 +68,7 @@ const Disclaimer = () => {
         new task.
       </div>
       <div className="info-text-highlighted">
-        To participate, you must have the standard QWERTY keyboard.
+        To participate, you must have a QWERTY keyboard.
       </div>
       <div className="info-text-highlighted">
         By participating in the research, you agree that all the data collected

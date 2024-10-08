@@ -158,6 +158,7 @@ const Task2b = () => {
           className={classNames("task-input-field", { enabled })}
           id="task-input-field"
           type="text"
+          data-1p-ignore
           name="name"
           autoComplete="off"
           autoCorrect="off"

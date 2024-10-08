@@ -157,6 +157,7 @@ const Task1 = () => {
         <input
           className={classNames("task-input-field", { enabled })}
           id="task-input-field"
+          data-1p-ignore
           type="text"
           name="name"
           autoComplete="off"
