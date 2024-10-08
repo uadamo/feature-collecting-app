@@ -27,7 +27,7 @@ const Task2c = () => {
   const [reactionLatency, setReactionLatency] = useState(2000);
   const lodash = require("lodash");
   const currentDate = new Date();
-  const exp1text = "for doves love my big sphinx of quartz";
+  const exp1text = "there were LOOSE $100 bills in the cooler";
   const userId = Cookies.get("keystroke-auth-research-tracking");
   const db = getDatabase(app);
 
