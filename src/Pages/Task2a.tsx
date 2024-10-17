@@ -85,7 +85,7 @@ const Task2a = () => {
       repeated: e.repeat,
     };
     setKeyStrokeList((keystrokeList) => [...keystrokeList, keyDownInfo]);
-    if (e.key === "Enter" && completed) {
+    if (e.key === "Enter" && completed && iteration < 10) {
       handleContinue();
       document.getElementById("task-input-field")!.blur();
     }
