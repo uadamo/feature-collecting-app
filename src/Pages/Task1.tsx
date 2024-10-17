@@ -85,6 +85,10 @@ const Task1 = () => {
       repeated: e.repeat,
     };
     setKeyStrokeList((keystrokeList) => [...keystrokeList, keyDownInfo]);
+    if (e.key === "Enter" && completed) {
+      handleContinue();
+      document.getElementById("task-input-field")!.blur();
+    }
   };
 
   const handleRegisterKeyup = (e: KeyboardEvent) => {
@@ -176,7 +180,12 @@ const Task1 = () => {
             <div className="iteration-counter">{iteration}/10 attempts</div>
           )}
           {iteration < 10 && completed && (
-            <button className="repeat-task-button" onClick={handleContinue}>
+            <button
+              type="button"
+              className="repeat-task-button"
+              onClick={handleContinue}
+              onKeyDown={(e) => e.key === "Enter" && handleContinue}
+            >
               Repeat task
             </button>
           )}

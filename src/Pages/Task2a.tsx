@@ -85,6 +85,10 @@ const Task2a = () => {
       repeated: e.repeat,
     };
     setKeyStrokeList((keystrokeList) => [...keystrokeList, keyDownInfo]);
+    if (e.key === "Enter" && completed) {
+      handleContinue();
+      document.getElementById("task-input-field")!.blur();
+    }
   };
 
   const handleRegisterKeyup = (e: KeyboardEvent) => {
