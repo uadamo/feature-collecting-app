@@ -68,6 +68,7 @@
 
 .task-input-field.enabled {
   pointer-events: all;
+  background-color: rgb(247, 247, 247);
 }
 
 .task-task-text {
